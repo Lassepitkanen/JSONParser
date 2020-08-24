@@ -4,7 +4,7 @@ function parseJSON(data) {
   setIndex = void 0;
   value = void 0;
 
-  const str = data.toString().replace(/\s/g, '');
+  const str = data.toString();
   len = str.length;
   getValue(str, 0);
   return value;
@@ -52,6 +52,9 @@ function parseObject(str) {
 function getValue(str, i) {
   let endIndex = -1;
   switch (str.charCodeAt(i)) {
+    case 32: // empty -> go to nextt
+      getValue(str, i + 1);      
+      break;
     case 91: // [
       endIndex = findContainerEnd(str, i, 91, 93);
       if (endIndex !== -1) {
